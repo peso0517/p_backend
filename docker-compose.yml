@@ -1,28 +1,6 @@
-version: '3.1'
-
-# volumes:
-#   ignore:
+version: '3.3'
 
 services:
-  vue:
-    build:
-      context: ./docker/vue
-    container_name: frontend
-    ports:
-      - 8080:8080
-    environment:
-      - TZ=Asia/Tokyo
-    volumes:
-      - ./frontend:/var/www/frontend
-    working_dir: /var/www/frontend
-    tty: true
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "200k"
-        max-file: "10"
-    # command: sh -c "npm run serve"
-
   go:
     build:
       context: .
@@ -34,16 +12,8 @@ services:
       - TZ=Asia/Tokyo
     volumes:
       - ./backend:/go/src/backend
-      # mount対象から除外
-      # - ignore:/go/src/docker/vue
-      # - ignore:/go/src/docker/nginx
     working_dir: /go/src/backend
     tty: true
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "200k"
-        max-file: "10"
 
   nginx:
     image: nginx
